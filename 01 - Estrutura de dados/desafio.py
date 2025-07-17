@@ -7,9 +7,9 @@ def menu():
     [d]\tDepositar
     [s]\tSacar
     [e]\tExtrato
+    [nu]\tNovo usuário
     [nc]\tNova conta
     [lc]\tListar contas
-    [nu]\tNovo usuário
     [q]\tSair
     => """
     return input(textwrap.dedent(menu))
@@ -18,7 +18,7 @@ def menu():
 def depositar(saldo, valor, extrato, /):
     if valor > 0:
         saldo += valor
-        extrato += f"Depósito:\tR$ {valor:.2f}\n"
+        extrato += f"Depósito:\tR$ +{valor:.2f}\n"
         print("\n=== Depósito realizado com sucesso! ===")
     else:
         print("\n@@@ Operação falhou! O valor informado é inválido. @@@")
@@ -42,7 +42,7 @@ def sacar(*, saldo, valor, extrato, limite, numero_saques, limite_saques):
 
     elif valor > 0:
         saldo -= valor
-        extrato += f"Saque:\t\tR$ {valor:.2f}\n"
+        extrato += f"Saque:\t\tR$ -{valor:.2f}\n"
         numero_saques += 1
         print("\n=== Saque realizado com sucesso! ===")
 
@@ -57,6 +57,11 @@ def exibir_extrato(saldo, /, *, extrato):
     print("Não foram realizadas movimentações." if not extrato else extrato)
     print(f"\nSaldo:\t\tR$ {saldo:.2f}")
     print("==========================================")
+
+
+def filtrar_usuario(cpf, usuarios):
+    usuarios_filtrados = [usuario for usuario in usuarios if usuario["cpf"] == cpf]
+    return usuarios_filtrados[0] if usuarios_filtrados else None
 
 
 def criar_usuario(usuarios):
@@ -74,11 +79,6 @@ def criar_usuario(usuarios):
     usuarios.append({"nome": nome, "data_nascimento": data_nascimento, "cpf": cpf, "endereco": endereco})
 
     print("=== Usuário criado com sucesso! ===")
-
-
-def filtrar_usuario(cpf, usuarios):
-    usuarios_filtrados = [usuario for usuario in usuarios if usuario["cpf"] == cpf]
-    return usuarios_filtrados[0] if usuarios_filtrados else None
 
 
 def criar_conta(agencia, numero_conta, usuarios):

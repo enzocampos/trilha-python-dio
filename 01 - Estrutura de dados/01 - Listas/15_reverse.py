@@ -1,5 +1,5 @@
 linguagens = ["python", "js", "c", "java", "csharp"]
 
-linguagens.reverse()
+linguagens.reverse() # Fazer o espelhamento da lista
 
 print(linguagens)  # ["csharp", "java", "c", "js", "python"]
